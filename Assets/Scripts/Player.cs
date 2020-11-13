@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     public float jumpForce;
     public LayerMask ground;
+    public TextBoxStuff txtbs;
     
     private float x;
     private float z;
@@ -27,6 +28,24 @@ public class Player : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
         }
 
+        if (TextBoxStuff.waited)
+        {
+            MakeTextBoxText("", 0);
+            TextBoxStuff.waited = false;
+        }
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "FirstTutorialText")
+        {
+            MakeTextBoxText("Hello i am bob fuck you", 1);
+            Destroy(collision.gameObject);
+            txtbs.StartCoroutine(txtbs.MakeDelay(5));
+            
+            
+        }
     }
 
     private void FixedUpdate()
@@ -55,5 +74,13 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void MakeTextBoxText(string text, float delay)
+    {
+        txtbs.wantedTextObject.text = "";
+        //txtbs.StartCoroutine(txtbs.MakeDelay(delay));
+        txtbs.wantedText = text;
+        txtbs.StartCoroutine(txtbs.MakeTextBeCool(0.1f));
     }
 }

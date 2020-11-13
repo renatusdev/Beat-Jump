@@ -9,6 +9,8 @@ public class TextBoxStuff : MonoBehaviour
     public TMP_Text wantedTextObject;
     public bool isTextOnScreen = false;
 
+    public static bool waited = false;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Y) && !isTextOnScreen)
@@ -24,12 +26,20 @@ public class TextBoxStuff : MonoBehaviour
         }
     }
 
-    IEnumerator MakeTextBeCool(float time)
+    public IEnumerator MakeTextBeCool(float time)
     {
         for (int i = 0; i < wantedText.Length; i++)
         { 
             wantedTextObject.text += wantedText[i];
             yield return new WaitForSeconds(time);
         }
+    }
+
+    public IEnumerator MakeDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Debug.Log("Waited For " + time + " Seconds...");
+        waited = true;
+        
     }
 }
