@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     public float jumpForce;
     public LayerMask ground;
+    
     private float x;
     private float z;
     private Rigidbody rb;
@@ -23,8 +24,9 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Force);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
         }
+
     }
 
     private void FixedUpdate()
@@ -48,7 +50,7 @@ public class Player : MonoBehaviour
 
     bool isGrounded()
     {
-        if(Physics.Raycast(transform.position, Vector3.down, 1, ground))
+        if(Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), 0.4f, ground))
         {
             return true;
         }

@@ -22,19 +22,25 @@ public class CameraScript : MonoBehaviour
 
         x = Mathf.Clamp(x, -90, 90);
 
-        transform.localRotation = Quaternion.Euler(x, y, 0);
-        player.localRotation = Quaternion.Euler(0, y, 0);
-        transform.position = player.transform.position;
+        if (!Paused)
+        {
+            transform.localRotation = Quaternion.Euler(x, y, 0);
+            player.localRotation = Quaternion.Euler(0, y, 0);
+            transform.position = player.transform.position;
+        }
+        
 
 
         if (Input.GetKeyDown(KeyCode.Escape) && !Paused)
         {
             Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
             Paused = true;
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && Paused)
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
             Paused = false;
         }
     }
