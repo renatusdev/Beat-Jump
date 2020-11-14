@@ -4,76 +4,87 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed;
-    public float jumpForce;
-    public LayerMask ground;
     public TextBoxStuff txtbs;
-    
-    private float x;
-    private float z;
-    private Rigidbody rb;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    private int count = 0;
+    public static bool Paused = false;
 
     private void Update()
     {
-        x = Input.GetAxisRaw("Horizontal");
-        z = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
-        }
-
         if (TextBoxStuff.waited)
         {
-            MakeTextBoxText("", 0);
-            TextBoxStuff.waited = false;
+            if(count == 0)
+            {
+                MakeTextBoxText("To move around Use the WASD Keys or The ARROW Keys", 1);
+                count++;
+                TextBoxStuff.waited = false;
+                txtbs.StartCoroutine(txtbs.MakeDelay(6));
+                return;
+            }
+            if(count == 1)
+            {
+                MakeTextBoxText("To Run Press the LShift Button", 1);
+                count++;
+                TextBoxStuff.waited = false;
+                txtbs.StartCoroutine(txtbs.MakeDelay(4));
+                return;
+            }
+            if (count == 2)
+            {
+                MakeTextBoxText("To Jump press The Space Button \n Note: The Longer you hold down Space the higher you Jump", 1);
+                count++;
+                TextBoxStuff.waited = false;
+                txtbs.StartCoroutine(txtbs.MakeDelay(10));
+                return;
+            }
+            if (count == 3)
+            {
+                MakeTextBoxText("Please continue along to get to the first obstacle", 1);
+                count++;
+                TextBoxStuff.waited = false;
+                txtbs.StartCoroutine(txtbs.MakeDelay(6));
+                return;
+            }
+            if(count == 4)
+            {
+                MakeTextBoxText("", 1);
+                TextBoxStuff.waited = false;
+                return;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !Paused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+            Paused = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && Paused)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
+            Paused = false;
         }
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag == "FirstTutorialText")
+        if (other.gameObject.tag == "FirstTutorialText")
         {
-            MakeTextBoxText("Hello i am bob fuck you", 1);
-            Destroy(collision.gameObject);
+            MakeTextBoxText("Hello and Welcome To... \"Beat-Jump\" :D", 1);
+            Destroy(other.gameObject);
             txtbs.StartCoroutine(txtbs.MakeDelay(5));
-            
-            
         }
-    }
-
-    private void FixedUpdate()
-    {
-        rb.AddForce(transform.right * x * moveSpeed, ForceMode.VelocityChange);
-        rb.AddForce(transform.forward * z * moveSpeed, ForceMode.VelocityChange);
-
-        counterForce(0, 0.75f);
-    }
-
-    void counterForce(float maxSpeed, float stopStrength)
-    {
-        Vector3 vel = rb.velocity;
-        vel.y = 0;
-        float mag = vel.magnitude;
-        if (mag > maxSpeed)
+        if(other.gameObject.tag == "SecondTutorialText")
         {
-            rb.AddForce(-vel.normalized * (mag - maxSpeed) * stopStrength, ForceMode.VelocityChange);
+            TextBoxStuff.waited = false;
+            count = 4;
+            txtbs.StopAllCoroutines();
+            MakeTextBoxText("", 1);
+            MakeTextBoxText("Did i mantion you can wall run? silly me... Press LShift + W to wall run", 1);
+            Destroy(other.gameObject);
+            txtbs.StartCoroutine(txtbs.MakeDelay(8));
         }
-    }
-
-    bool isGrounded()
-    {
-        if(Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), 0.4f, ground))
-        {
-            return true;
-        }
-        return false;
     }
 
     public void MakeTextBoxText(string text, float delay)

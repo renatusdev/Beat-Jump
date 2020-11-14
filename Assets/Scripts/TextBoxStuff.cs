@@ -26,13 +26,22 @@ public class TextBoxStuff : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+
+    }
+
     public IEnumerator MakeTextBeCool(float time)
     {
+
         for (int i = 0; i < wantedText.Length; i++)
-        { 
-            wantedTextObject.text += wantedText[i];
-            yield return new WaitForSeconds(time);
+        {
+                wantedTextObject.text += wantedText[i];
+                yield return new WaitForSeconds(time);
         }
+
+
+
     }
 
     public IEnumerator MakeDelay(float time)
@@ -40,6 +49,6 @@ public class TextBoxStuff : MonoBehaviour
         yield return new WaitForSeconds(time);
         Debug.Log("Waited For " + time + " Seconds...");
         waited = true;
-        
+
     }
 }

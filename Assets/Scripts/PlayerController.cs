@@ -42,6 +42,15 @@ public class PlayerController : MonoBehaviour
     {
         GroundCheck();
         Movement();
+
+        if (transform.position.y <= -5)
+        {
+            foreach (GameObject o in GameObject.FindGameObjectsWithTag("CurrentCheckpoint"))
+            {
+                Debug.Log(o.transform.position);
+                transform.position = o.transform.position;
+            }
+        }
     }
 
     void GroundCheck()
@@ -66,7 +75,7 @@ public class PlayerController : MonoBehaviour
     void Movement()
     {
         // Looking
-        {
+        if(!Player.Paused){
             // Horizontal Rotation
             transform.Rotate(new Vector3(0, Input.GetAxisRaw("Mouse X") * rotationSpeed, 0), Space.Self);
 

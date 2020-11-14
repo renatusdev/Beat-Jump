@@ -129,6 +129,9 @@ GameObject:
   - component: {fileID: 5022795845596970045}
   - component: {fileID: 1623332555}
   - component: {fileID: 1623332554}
+  - component: {fileID: 8029754959405766117}
+  - component: {fileID: 1623332560}
+  - component: {fileID: 1623332562}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -144,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5022795845596970043}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -13.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1687258585}
@@ -248,9 +251,62 @@ MonoBehaviour:
   airAccelerationSpeed: 15
   sprintSpeedModifier: 2
   gravityFallMultiplier: 2.5
-  gravityForce: 9.82
-  gravitySmallJump: 2
-  jumpForce: 7
+  gravityForce: 5
+  gravitySmallJump: 3
+  jumpForce: 6
   groundCheckLayers:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &8029754959405766117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022795845596970043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e6201f0d443c742a0ebf4d07eb8b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallMaxDistance: 1
+  wallSpeedMultiplier: 1.2
+  gravityOnWallRide: 4
+  maxAngleRoll: 25
+  cameraTransitionDuration: 1
+  jumpDuration: 1
+  wallBouncing: 3
+  minHeightForWallRun: 1.2
+--- !u!114 &1623332560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022795845596970043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e6201f0d443c742a0ebf4d07eb8b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallMaxDistance: 1
+  wallSpeedMultiplier: 8
+  gravityOnWallRide: 4
+  maxAngleRoll: 25
+  cameraTransitionDuration: 1
+  jumpDuration: 0.5
+  wallBouncing: 12.08
+  minHeightForWallRun: 3
+--- !u!114 &1623332562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022795845596970043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575296b7c8277ba458e0fed95a8560d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtbs: {fileID: 0}
