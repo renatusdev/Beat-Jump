@@ -103,8 +103,8 @@ public class PlayerController : MonoBehaviour
                 Vector3 directionRight = Vector3.Cross(velocity.normalized, transform.up);
                 velocity = Vector3.Cross(m_GroundNormal, directionRight).normalized * velocity.magnitude;
         
-                // Jumped
-                if(Input.GetButtonDown("Jump")) 
+                // Jump
+                if(Input.GetButtonDown("Jump") & BeatSignal.i.IsInLowBeat()) 
                 {   
                     velocity += new Vector3(move.x, 0, move.z);
                     if(!m_WallRun.IsWallRunning())
