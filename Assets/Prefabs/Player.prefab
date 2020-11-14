@@ -129,9 +129,13 @@ GameObject:
   - component: {fileID: 5022795845596970045}
   - component: {fileID: 1623332555}
   - component: {fileID: 1623332554}
+<<<<<<< HEAD
   - component: {fileID: 8029754959405766117}
   - component: {fileID: 1623332560}
   - component: {fileID: 1623332562}
+=======
+  - component: {fileID: 1623332560}
+>>>>>>> adee2c9c8f4b1d5cff43da140ce5b712ce625583
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -251,12 +255,17 @@ MonoBehaviour:
   airAccelerationSpeed: 15
   sprintSpeedModifier: 2
   gravityFallMultiplier: 2.5
+<<<<<<< HEAD
   gravityForce: 5
+=======
+  gravityForce: 12.6
+>>>>>>> adee2c9c8f4b1d5cff43da140ce5b712ce625583
   gravitySmallJump: 3
   jumpForce: 6
   groundCheckLayers:
     serializedVersion: 2
     m_Bits: 256
+<<<<<<< HEAD
 --- !u!114 &8029754959405766117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +286,8 @@ MonoBehaviour:
   jumpDuration: 1
   wallBouncing: 3
   minHeightForWallRun: 1.2
+=======
+>>>>>>> adee2c9c8f4b1d5cff43da140ce5b712ce625583
 --- !u!114 &1623332560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,12 +302,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallMaxDistance: 1
   wallSpeedMultiplier: 8
+<<<<<<< HEAD
   gravityOnWallRide: 4
+=======
+  gravityOnWallRide: 6
+>>>>>>> adee2c9c8f4b1d5cff43da140ce5b712ce625583
   maxAngleRoll: 25
   cameraTransitionDuration: 1
   jumpDuration: 0.5
   wallBouncing: 12.08
   minHeightForWallRun: 3
+<<<<<<< HEAD
 --- !u!114 &1623332562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,3 +326,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtbs: {fileID: 0}
+=======
+>>>>>>> adee2c9c8f4b1d5cff43da140ce5b712ce625583
