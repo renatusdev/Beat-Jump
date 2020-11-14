@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
             }
             if (count == 2)
             {
-                MakeTextBoxText("To Jump press The Space Button \n Note: The Longer you hold down Space the higher you Jump", 1);
+                MakeTextBoxText("As you may have noticed you jump to the beat of the rythm so get a timer :) ", 1);
                 count++;
                 TextBoxStuff.waited = false;
                 txtbs.StartCoroutine(txtbs.MakeDelay(10));
@@ -38,13 +38,22 @@ public class Player : MonoBehaviour
             }
             if (count == 3)
             {
+                MakeTextBoxText("If you time it correctly... you can hold space to go higher with your jump ", 1);
+                count++;
+                TextBoxStuff.waited = false;
+                txtbs.StartCoroutine(txtbs.MakeDelay(10));
+                return;
+            }
+            if(count == 4)
+            {
                 MakeTextBoxText("Please continue along to get to the first obstacle", 1);
                 count++;
                 TextBoxStuff.waited = false;
                 txtbs.StartCoroutine(txtbs.MakeDelay(6));
                 return;
+                
             }
-            if(count == 4)
+            if(count == 5)
             {
                 MakeTextBoxText("", 1);
                 TextBoxStuff.waited = false;
@@ -78,7 +87,7 @@ public class Player : MonoBehaviour
         if(other.gameObject.tag == "SecondTutorialText")
         {
             TextBoxStuff.waited = false;
-            count = 4;
+            count = 5;
             txtbs.StopAllCoroutines();
             MakeTextBoxText("", 1);
             MakeTextBoxText("Did i mantion you can wall run? silly me... Press LShift + W to wall run", 1);

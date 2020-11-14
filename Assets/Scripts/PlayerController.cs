@@ -47,6 +47,11 @@ public class PlayerController : MonoBehaviour
     {
         GroundCheck();
         Movement();
+
+        if(transform.position.y <= -5)
+        {
+            transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
+        }
     }
 
     void GroundCheck()
