@@ -8,13 +8,8 @@ public class BeatGUI : MonoBehaviour
     float nonBeatScale = 1.09f;
 
     float timeElapse = 0;
-    float duration = 3f;
+    float duration = 0.5f;
     
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {

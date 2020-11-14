@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float gravitySmallJump;
     public float jumpForce;
     public LayerMask groundCheckLayers;
+    public AudioPlay footsteps;
 
     public bool isGrounded { get; private set; }    
     public Vector3 velocity { get; set; }    
@@ -21,12 +22,14 @@ public class PlayerController : MonoBehaviour
 
     private float m_CamVerticalAngle;
     private float m_LastTimeJumped;
+    private float m_TimeSinceFootstepSound;
     private CharacterController m_Controller;
     private WallRun m_WallRun;
     private Vector3 m_GroundNormal;
     
     const float k_JumpCheckPreventionTime = 0.4f;
     const float k_GroundCheckDistance = 1;
+    const float k_TimePerFootstepSound = 0.3f;
 
     void Start()
     {
@@ -36,21 +39,14 @@ public class PlayerController : MonoBehaviour
         m_Controller = GetComponent<CharacterController>();
         cam = GetComponentInChildren<Camera>();
         m_WallRun = GetComponent<WallRun>();
+
+        m_TimeSinceFootstepSound = k_TimePerFootstepSound;
     }
 
     void Update()
     {
         GroundCheck();
         Movement();
-
-        if (transform.position.y <= -5)
-        {
-            foreach (GameObject o in GameObject.FindGameObjectsWithTag("CurrentCheckpoint"))
-            {
-                Debug.Log(o.transform.position);
-                transform.position = o.transform.position;
-            }
-        }
     }
 
     void GroundCheck()
@@ -75,23 +71,26 @@ public class PlayerController : MonoBehaviour
     void Movement()
     {
         // Looking
-        if(!Player.Paused){
-            // Horizontal Rotation
-            transform.Rotate(new Vector3(0, Input.GetAxisRaw("Mouse X") * rotationSpeed, 0), Space.Self);
-
-            m_CamVerticalAngle += -Input.GetAxisRaw("Mouse Y") * rotationSpeed;
-            m_CamVerticalAngle = Mathf.Clamp(m_CamVerticalAngle, -89f, 89f);
-
-            // Vertical Camera Rotation
-
-            // If the player can wallrun.
-            if(m_WallRun != null)
+        {
+            if(!Player.Paused)
             {
-                cam.transform.localEulerAngles = new Vector3(m_CamVerticalAngle, 0, m_WallRun.GetCameraRoll());
-            }
-            else
-            {
-                cam.transform.localEulerAngles = new Vector3(m_CamVerticalAngle, 0, 0);
+                // Horizontal Rotation
+                transform.Rotate(new Vector3(0, Input.GetAxisRaw("Mouse X") * rotationSpeed, 0), Space.Self);
+
+                m_CamVerticalAngle += -Input.GetAxisRaw("Mouse Y") * rotationSpeed;
+                m_CamVerticalAngle = Mathf.Clamp(m_CamVerticalAngle, -89f, 89f);
+
+                // Vertical Camera Rotation
+
+                // If the player can wallrun.
+                if(m_WallRun != null)
+                {
+                    cam.transform.localEulerAngles = new Vector3(m_CamVerticalAngle, 0, m_WallRun.GetCameraRoll());
+                }
+                else
+                {
+                    cam.transform.localEulerAngles = new Vector3(m_CamVerticalAngle, 0, 0);
+                }
             }
         }
 
@@ -100,11 +99,31 @@ public class PlayerController : MonoBehaviour
             float speedModifier = 1;    
 
             if(Input.GetButton("Sprint"))
+            {
+                m_TimeSinceFootstepSound += (Time.deltaTime * 0.8f);
                 speedModifier = sprintSpeedModifier;
+            }
 
             Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
             move.Normalize();
             move = transform.TransformVector(move);
+
+            // Footstep Sound
+            {
+                if(m_TimeSinceFootstepSound > k_TimePerFootstepSound)
+                {
+                    m_TimeSinceFootstepSound = 0;
+
+                    if(!move.Equals(Vector3.zero) && (!Input.GetButtonDown("Jump") && isGrounded))
+                    {
+                        footsteps.Play();
+                    }
+                }
+                else
+                {
+                    m_TimeSinceFootstepSound += Time.deltaTime;
+                }
+            }
             
             if(isGrounded || (m_WallRun != null && m_WallRun.IsWallRunning()))
             {
@@ -113,7 +132,7 @@ public class PlayerController : MonoBehaviour
                 velocity = Vector3.Cross(m_GroundNormal, directionRight).normalized * velocity.magnitude;
         
                 // Jump
-                if(Input.GetButtonDown("Jump") && BeatSignal.i.IsInLowBeat()) 
+                if(BeatSignal.i.IsInLowBeat())
                 {   
                     velocity += new Vector3(move.x, 0, move.z);
                     if(!m_WallRun.IsWallRunning())
@@ -122,7 +141,8 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        velocity += m_WallRun.GetWallJumpDirection() * jumpForce;
+                        if(Input.GetButtonDown("Jump"))
+                            velocity += m_WallRun.GetWallJumpDirection() * jumpForce;
                     }
                     isGrounded = false;
                     m_LastTimeJumped = Time.time;
