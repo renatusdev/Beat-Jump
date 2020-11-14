@@ -16,14 +16,15 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundCheckLayers;
 
     public bool isGrounded { get; private set; }    
-    public Vector3 velocity { get; private set; }    
+    public Vector3 velocity { get; set; }    
+    public Camera cam { get; set; }
 
     private float m_CamVerticalAngle;
     private float m_LastTimeJumped;
-    private Camera m_Camera;
     private CharacterController m_Controller;
+    private WallRun m_WallRun;
     private Vector3 m_GroundNormal;
-
+    
     const float k_JumpCheckPreventionTime = 0.4f;
     const float k_GroundCheckDistance = 1;
 
@@ -33,7 +34,8 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
 
         m_Controller = GetComponent<CharacterController>();
-        m_Camera = GetComponentInChildren<Camera>();
+        cam = GetComponentInChildren<Camera>();
+        m_WallRun = GetComponent<WallRun>();
     }
 
     void Update()
@@ -72,7 +74,16 @@ public class PlayerController : MonoBehaviour
             m_CamVerticalAngle = Mathf.Clamp(m_CamVerticalAngle, -89f, 89f);
 
             // Vertical Camera Rotation
-            m_Camera.transform.localEulerAngles = new Vector3(m_CamVerticalAngle, 0, 0);
+
+            // If the player can wallrun.
+            if(m_WallRun != null)
+            {
+                cam.transform.localEulerAngles = new Vector3(m_CamVerticalAngle, 0, m_WallRun.GetCameraRoll());
+            }
+            else
+            {
+                cam.transform.localEulerAngles = new Vector3(m_CamVerticalAngle, 0, 0);
+            }
         }
 
         // Moving
@@ -86,27 +97,33 @@ public class PlayerController : MonoBehaviour
             move.Normalize();
             move = transform.TransformVector(move);
             
-            if(isGrounded)
+            if(isGrounded || (m_WallRun != null && m_WallRun.IsWallRunning()))
             {
                 velocity = move * movementSpeed * speedModifier;
                 Vector3 directionRight = Vector3.Cross(velocity.normalized, transform.up);
                 velocity = Vector3.Cross(m_GroundNormal, directionRight).normalized * velocity.magnitude;
         
                 // Jumped
-                if(Input.GetButtonDown("Jump"))
-                {
+                if(Input.GetButtonDown("Jump")) 
+                {   
                     velocity += new Vector3(move.x, 0, move.z);
-                    velocity += Vector3.up * jumpForce;
+                    if(!m_WallRun.IsWallRunning())
+                    {
+                        velocity += Vector3.up * jumpForce;
+                    }
+                    else
+                    {
+                        velocity += m_WallRun.GetWallJumpDirection() * jumpForce;
+                    }
                     isGrounded = false;
                     m_LastTimeJumped = Time.time;
                 }
             }
-
             else
             {
                 // Air Movement
                 velocity += move * airAccelerationSpeed * Time.deltaTime;
-                
+                    
                 // Horizontal clamp
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(velocity, Vector3.up);
                 horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, movementSpeed * speedModifier);
