@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LowerFog : MonoBehaviour
 {
+    public float fogDensity;
+
     bool startLoweringFog;
     float timeElapsed;
     float transitionDuration;
@@ -28,9 +30,9 @@ public class LowerFog : MonoBehaviour
         if(startLoweringFog)
         {
             timeElapsed += Time.deltaTime;
-            RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, 0.01f, timeElapsed/transitionDuration);
+            RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, fogDensity, timeElapsed/transitionDuration);
 
-            if(RenderSettings.fogDensity.Equals(0.01f))
+            if(RenderSettings.fogDensity.Equals(fogDensity))
             {
                 startLoweringFog = false;
             }

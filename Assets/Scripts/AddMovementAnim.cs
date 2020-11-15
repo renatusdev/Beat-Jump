@@ -14,7 +14,7 @@ public class AddMovementAnim : MonoBehaviour
     public ZDirection zDir;
 
     public LeanTweenType curve;
-    [Range(0, 100)] public int magnitude;
+    [Range(-50, 50)] public int magnitude;
     public int duration;
     public bool loop;
     public bool atStart;
@@ -25,9 +25,9 @@ public class AddMovementAnim : MonoBehaviour
             return;
 
         if (loop)
-            LeanTween.move(this.gameObject, CreateDirection() * magnitude, duration).setEase(curve).setLoopPingPong();
+            LeanTween.move(this.gameObject, transform.position + (CreateDirection() * magnitude), duration).setEase(curve).setLoopPingPong();
         else
-            LeanTween.move(this.gameObject, CreateDirection() * magnitude, duration).setEase(curve);
+            LeanTween.move(this.gameObject, transform.position + (CreateDirection() * magnitude), duration).setEase(curve);
     }
 
     Vector3 CreateDirection()

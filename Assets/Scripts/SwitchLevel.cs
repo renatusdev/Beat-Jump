@@ -9,7 +9,6 @@ public class SwitchLevel : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Next Level");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
