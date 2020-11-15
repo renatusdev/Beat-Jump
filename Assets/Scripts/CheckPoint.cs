@@ -27,4 +27,9 @@ public class CheckPoint : MonoBehaviour
             gameObject.tag = "CurrentCheckpoint";
         }
     }
+
+    private void OnDisable()
+    {
+     Debug.Log("test");   
+    }
 }

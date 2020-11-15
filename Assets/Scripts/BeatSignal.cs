@@ -97,6 +97,7 @@ public class BeatSignal : MonoBehaviour
                 Debug.DrawLine(new Vector3(1*i, 0, 0), new Vector3(1*i, bandBuffer[i], 0), Color.blue);
             }
         }
+
     }
 
     private float timeTillBeatReset = 0.2f;

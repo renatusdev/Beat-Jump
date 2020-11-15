@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,12 +19,12 @@ public class Player : MonoBehaviour
                 MakeTextBoxText("Follow The Light.", 1);
                 count++;
                 TextBoxStuff.waited = false;
-                txtbs.StartCoroutine(txtbs.MakeDelay(2.2f));
+                txtbs.StartCoroutine(txtbs.MakeDelay(2.4f));
                 return;
             }
             if(count == 1)
             {
-                MakeTextBoxText("To Run Press the LShift Button", 1);
+                MakeTextBoxText("To Run Press LShift.", 1);
                 count++;
                 TextBoxStuff.waited = false;
                 txtbs.StartCoroutine(txtbs.MakeDelay(4));
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour
             }
             if (count == 2)
             {
-                MakeTextBoxText("If you time it correctly... you can hold space to go higher with your jump ", 1);
+                MakeTextBoxText("If you time it correctly... you can jump higher", 1);
                 count++;
                 TextBoxStuff.waited = false;
                 txtbs.StartCoroutine(txtbs.MakeDelay(10));
@@ -65,27 +66,33 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !Paused)
         {
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Time.timeScale = 0;
             Paused = true;
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && Paused)
         {
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
             Paused = false;
         }
-
-        if (transform.position.y <= -5)
-        {
-            transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
-            Dead = false;
-            
-        }
-
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // Adding To Eitans Code
+        if(other.CompareTag("DeathCollider"))
+        {
+            Debug.Log("hello");
+            Dead = true;
+            GetComponent<PlayerController>().enabled = false;
+            transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
+            StartCoroutine(WaitTimer());
+
+        }
+
         if (other.gameObject.tag == "FirstTutorialText")
         {
             MakeTextBoxText("Move Forward. Trust me.", 1);
@@ -98,19 +105,16 @@ public class Player : MonoBehaviour
             count = 5;
             txtbs.StopAllCoroutines();
             MakeTextBoxText("", 1);
-            MakeTextBoxText("Did i mention you can wall run by jumping and holding LShift + W?", 1);
+            MakeTextBoxText("You can wallrunu, but only jump out during beat.", 1);
             Destroy(other.gameObject);
             txtbs.StartCoroutine(txtbs.MakeDelay(8));
         }
-        
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private IEnumerator WaitTimer()
     {
-        if (collision.gameObject.tag == "DeathCollider")
-        {
-            Dead = true;
-        }
+        yield return new WaitForSeconds(0.1f);
+        GetComponent<PlayerController>().enabled = enabled;
     }
 
     public void MakeTextBoxText(string text, float delay)

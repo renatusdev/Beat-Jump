@@ -14,9 +14,6 @@ public class PlayerController : MonoBehaviour
     public float gravitySmallJump;
     public float jumpForce;
     public LayerMask groundCheckLayers;
-    public AudioPlay footsteps;
-
-    [SerializeField] public static float deathYLevel;
 
     public bool isGrounded { get; private set; }    
     public Vector3 velocity { get; set; }    
@@ -50,6 +47,10 @@ public class PlayerController : MonoBehaviour
         GroundCheck();
         Movement();
 
+        // if(transform.position.y <= -5)
+        // {
+        //     transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
+        // }
     }
 
     void GroundCheck()
@@ -69,7 +70,8 @@ public class PlayerController : MonoBehaviour
                 isGrounded = true;
             }
         }
-    }
+    }   
+
 
     void Movement()
     {
@@ -102,31 +104,11 @@ public class PlayerController : MonoBehaviour
             float speedModifier = 1;    
 
             if(Input.GetButton("Sprint"))
-            {
-                m_TimeSinceFootstepSound += (Time.deltaTime * 0.8f);
                 speedModifier = sprintSpeedModifier;
-            }
 
             Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
             move.Normalize();
             move = transform.TransformVector(move);
-
-            // Footstep Sound
-            {
-                if(m_TimeSinceFootstepSound > k_TimePerFootstepSound)
-                {
-                    m_TimeSinceFootstepSound = 0;
-
-                    if(!move.Equals(Vector3.zero) && (!Input.GetButtonDown("Jump") && isGrounded))
-                    {
-                        footsteps.Play();
-                    }
-                }
-                else
-                {
-                    m_TimeSinceFootstepSound += Time.deltaTime;
-                }
-            }
             
             if(isGrounded || (m_WallRun != null && m_WallRun.IsWallRunning()))
             {
@@ -134,8 +116,8 @@ public class PlayerController : MonoBehaviour
                 Vector3 directionRight = Vector3.Cross(velocity.normalized, transform.up);
                 velocity = Vector3.Cross(m_GroundNormal, directionRight).normalized * velocity.magnitude;
         
-                // Jump
-                if(BeatSignal.i.IsInLowBeat())
+                    // Jump
+                if(true)
                 {   
                     velocity += new Vector3(move.x, 0, move.z);
                     if(!m_WallRun.IsWallRunning())
@@ -153,7 +135,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                // Air Movement
+                // Air Movement 
                 velocity += move * airAccelerationSpeed * Time.deltaTime;
                     
                 // Horizontal clamp
@@ -173,15 +155,5 @@ public class PlayerController : MonoBehaviour
 
             m_Controller.Move(velocity * Time.deltaTime);
         }
-    }
-
-    private void OnGUI()
-    {
-        GUI.TextArea(new Rect(25,25, 50, 50), "isGrounded: " + isGrounded);    
-    }
-
-    public void Respawn()
-    {
-        
     }
 }

@@ -47,7 +47,6 @@ public class TextBoxStuff : MonoBehaviour
     public IEnumerator MakeDelay(float time)
     {
         yield return new WaitForSeconds(time);
-        Debug.Log("Waited For " + time + " Seconds...");
         waited = true;
 
     }
