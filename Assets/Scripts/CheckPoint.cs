@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
+    public static Vector3 pos;
+
+    private void Start()
+    {
+        pos = transform.position;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

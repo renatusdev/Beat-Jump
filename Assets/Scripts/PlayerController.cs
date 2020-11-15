@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         GroundCheck();
         Movement();
-        //transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
+
     }
 
     private void OnTriggerEnter(Collider other)
