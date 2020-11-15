@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundCheckLayers;
     public AudioPlay footsteps;
 
+    [SerializeField] public static float deathYLevel;
+
     public bool isGrounded { get; private set; }    
     public Vector3 velocity { get; set; }    
     public Camera cam { get; set; }
@@ -47,11 +49,16 @@ public class PlayerController : MonoBehaviour
     {
         GroundCheck();
         Movement();
+        //transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
+    }
 
-        // if(transform.position.y <= -5)
-        // {
-        //     transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
-        // }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "DeathCollider")
+        {
+            Debug.Log("dead");
+            transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
+        }
     }
 
     void GroundCheck()
@@ -180,5 +187,10 @@ public class PlayerController : MonoBehaviour
     private void OnGUI()
     {
         GUI.TextArea(new Rect(25,25, 50, 50), "isGrounded: " + isGrounded);    
+    }
+
+    public void Respawn()
+    {
+        
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Checkpoint
   - CurrentCheckpoint
   - SecondTutorialText
+  - DeathCollider
   layers:
   - Default
   - TransparentFX
