@@ -326,7 +326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8375632581399326995}
   - component: {fileID: 8375632581399326997}
-  - component: {fileID: -94537025755710688}
+  - component: {fileID: 1546458070}
   m_Layer: 0
   m_Name: Portal (1)
   m_TagString: Untagged
@@ -341,7 +341,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8375632581399326998}
-  m_LocalRotation: {x: -0, y: 0.70710576, z: -0, w: 0.70710784}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.70710677}
   m_LocalPosition: {x: 11, y: -52.6, z: 513.53}
   m_LocalScale: {x: 2.5029, y: 0.63726, z: 1}
   m_Children:
@@ -366,7 +366,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.88, y: 34.5, z: 11.28}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-94537025755710688
+--- !u!114 &1546458070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

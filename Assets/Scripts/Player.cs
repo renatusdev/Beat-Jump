@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             count = 5;
             txtbs.StopAllCoroutines();
             MakeTextBoxText("", 1);
-            MakeTextBoxText("Did i mantion you can wall run? silly me... Press LShift + W to wall run", 1);
+            MakeTextBoxText("Did i mention you can wall run by jumping and holding LShift + W?", 1);
             Destroy(other.gameObject);
             txtbs.StartCoroutine(txtbs.MakeDelay(8));
         }

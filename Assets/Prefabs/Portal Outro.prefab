@@ -10,17 +10,17 @@ PrefabInstance:
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11
+      value: 3.649655
       objectReference: {fileID: 0}
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -52.6
+      value: 1.6300001
       objectReference: {fileID: 0}
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 513.53
+      value: -0.5940027
       objectReference: {fileID: 0}
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
@@ -30,7 +30,7 @@ PrefabInstance:
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.70710576
+      value: 0.9914453
       objectReference: {fileID: 0}
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
@@ -40,7 +40,7 @@ PrefabInstance:
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70710784
+      value: -0.13052304
       objectReference: {fileID: 0}
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90.00001
+      value: 194.99998
       objectReference: {fileID: 0}
     - target: {fileID: 8375632581399326995, guid: 3a05aa55cb2dcc945b8ee6341dc8f807,
         type: 3}
@@ -72,5 +72,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal Outro
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1546458070, guid: 3a05aa55cb2dcc945b8ee6341dc8f807, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3a05aa55cb2dcc945b8ee6341dc8f807, type: 3}
