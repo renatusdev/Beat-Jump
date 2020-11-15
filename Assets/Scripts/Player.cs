@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public TextBoxStuff txtbs;
     private int count = 0;
     public static bool Paused = false;
+    public static bool Dead = false;
 
     private void Update()
     {
@@ -74,6 +75,13 @@ public class Player : MonoBehaviour
             Paused = false;
         }
 
+        if (transform.position.y <= -5)
+        {
+            transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
+            Dead = false;
+            
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -93,6 +101,15 @@ public class Player : MonoBehaviour
             MakeTextBoxText("Did i mention you can wall run by jumping and holding LShift + W?", 1);
             Destroy(other.gameObject);
             txtbs.StartCoroutine(txtbs.MakeDelay(8));
+        }
+        
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "DeathCollider")
+        {
+            Dead = true;
         }
     }
 

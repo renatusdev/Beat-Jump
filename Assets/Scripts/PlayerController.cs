@@ -52,15 +52,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "DeathCollider")
-        {
-            Debug.Log("dead");
-            transform.position = GameObject.FindGameObjectWithTag("CurrentCheckpoint").transform.position;
-        }
-    }
-
     void GroundCheck()
     {
         isGrounded = false;
