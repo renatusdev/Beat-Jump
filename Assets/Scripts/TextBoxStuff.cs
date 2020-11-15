@@ -13,17 +13,17 @@ public class TextBoxStuff : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y) && !isTextOnScreen)
-        {
-            StartCoroutine(MakeTextBeCool(0.01f));
-            isTextOnScreen = true;
+        // if (Input.GetKeyDown(KeyCode.Y) && !isTextOnScreen)
+        // {
+        //     StartCoroutine(MakeTextBeCool(0.01f));
+        //     isTextOnScreen = true;
 
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            wantedTextObject.text = "";
-            isTextOnScreen = false;
-        }
+        // }
+        // if (Input.GetKeyDown(KeyCode.T))
+        // {
+        //     wantedTextObject.text = "";
+        //     isTextOnScreen = false;
+        // }
     }
 
     private void OnTriggerEnter(Collider other)

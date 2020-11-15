@@ -14,10 +14,10 @@ public class Player : MonoBehaviour
         {
             if(count == 0)
             {
-                MakeTextBoxText("To move around Use the WASD Keys or The ARROW Keys", 1);
+                MakeTextBoxText("Follow The Light.", 1);
                 count++;
                 TextBoxStuff.waited = false;
-                txtbs.StartCoroutine(txtbs.MakeDelay(6));
+                txtbs.StartCoroutine(txtbs.MakeDelay(2.2f));
                 return;
             }
             if(count == 1)
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
             }
             if (count == 2)
             {
-                MakeTextBoxText("As you may have noticed you jump to the beat of the rythm so get a timer :) ", 1);
+                MakeTextBoxText("If you time it correctly... you can hold space to go higher with your jump ", 1);
                 count++;
                 TextBoxStuff.waited = false;
                 txtbs.StartCoroutine(txtbs.MakeDelay(10));
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
             }
             if (count == 3)
             {
-                MakeTextBoxText("If you time it correctly... you can hold space to go higher with your jump ", 1);
+                MakeTextBoxText("Now lets see what you're made of.", 1);
                 count++;
                 TextBoxStuff.waited = false;
                 txtbs.StartCoroutine(txtbs.MakeDelay(10));
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
             }
             if(count == 4)
             {
-                MakeTextBoxText("Please continue along to get to the first obstacle", 1);
+                MakeTextBoxText("", 1);
                 count++;
                 TextBoxStuff.waited = false;
                 txtbs.StartCoroutine(txtbs.MakeDelay(6));
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "FirstTutorialText")
         {
-            MakeTextBoxText("Hello and Welcome To... \"Beat-Jump\" :D", 1);
+            MakeTextBoxText("Move Forward. Trust me.", 1);
             Destroy(other.gameObject);
             txtbs.StartCoroutine(txtbs.MakeDelay(5));
         }
