@@ -4,7 +4,9 @@ Made in 48 hours.
 Submission for the Mix and Game Jam.
 + I (Sergio), game director + lead programmer implemented the Movement (wallrunning included) and Beat Detection.
 + Eitan, recently began learning Unity, and implemented Checkpoint, Death, and UI.
-+ Emmanuel Segarra, the musical composer (https://www.emmanuelsegarramusic.com/)
++ Emmanuel Segarra, the musical composer (https://www.emmanuelsegarramusic.com/).
++ Fae, 3D Modeller.
++ Max Parata, 3D Modeller (their asset pack: https://maxparata.itch.io/voxelgraveyard).
  
 LINK: https://re-natus.itch.io/beatjam
  
