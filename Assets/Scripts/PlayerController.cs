@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController m_Controller;
     private WallRun m_WallRun;
     private Vector3 m_GroundNormal;
+    private BeatSignal m_Beat;
     
     const float k_JumpCheckPreventionTime = 0.4f;
     const float k_GroundCheckDistance = 1;
@@ -116,7 +117,7 @@ public class PlayerController : MonoBehaviour
                 Vector3 directionRight = Vector3.Cross(velocity.normalized, transform.up);
                 velocity = Vector3.Cross(m_GroundNormal, directionRight).normalized * velocity.magnitude;
         
-                    // Jump
+                // Jump 
                 if(true)
                 {   
                     velocity += new Vector3(move.x, 0, move.z);
